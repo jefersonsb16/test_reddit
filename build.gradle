@@ -47,6 +47,20 @@ ext {
     coroutinesVersion = '1.0.1'
     rxAndroidVersion = '2.1.1'
     rxJavaVersion = '2.2.19'
+    coreTestingVersion = '2.1.0'
+    jUnitVersion = '4.13'
+    mockitoKotlinInlineVersion = '3.3.3'
+    mockitoKotlinVersion = '2.2.0'
+
+    //Core Testing
+    coreTestingLib = "androidx.arch.core:core-testing:$coreTestingVersion"
+
+    //JUnit
+    jUnitLib = "junit:junit:$jUnitVersion"
+
+    //Mockito
+    mockitoLib = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+    mockitoInlineLib = "org.mockito:mockito-inline:$mockitoKotlinInlineVersion"
 
     //Coroutines Lib
     coroutinesLib = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
