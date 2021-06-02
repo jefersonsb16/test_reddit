@@ -19,7 +19,7 @@ inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(crossinline fa
     return ViewModelProvider(this.viewModelStore, viewModelFactory)[T::class.java]
 }
 
-fun ImageView.bindImageUrl(
+fun ImageView.bindCircularImageUrl(
     url: String?, @DrawableRes placeholder: Int,
     @DrawableRes errorPlaceholder: Int
 ) {
@@ -32,6 +32,7 @@ fun ImageView.bindImageUrl(
         .load(url)
         .error(errorPlaceholder)
         .placeholder(placeholder)
+        .circleCrop()
         .into(this)
 }
 

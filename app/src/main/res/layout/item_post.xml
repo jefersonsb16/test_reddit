@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="post"
+            type="com.jeferson.android.test_reddit.domain.PostDomain" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="@dimen/normal_padding">
+
+        <ImageView
+            android:id="@+id/imagePost"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/text_image_post"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tvTitlePost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/normal_margin"
+            android:text="@{post.data.title}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medium_text_size_detail"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePost"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Esto es una prueba" />
+
+        <TextView
+            android:id="@+id/tvAuthorPost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/normal_margin"
+            android:layout_marginVertical="@dimen/normal_margin"
+            android:text="@{post.data.author}"
+            android:textSize="@dimen/medium_text_size_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePost"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitlePost"
+            tools:text="Jeferson Salazar" />
+
+        <TextView
+            android:id="@+id/tvCommentsPost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:gravity="end"
+            android:text="@{post.data.num_comments.toString() + ` comments`}"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imagePost"
+            app:layout_constraintTop_toBottomOf="@+id/tvAuthorPost"
+            tools:text="104 comments" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
