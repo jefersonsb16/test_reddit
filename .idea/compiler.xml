@@ -4,6 +4,7 @@
     <bytecodeTargetLevel target="1.7">
       <module name="test_reddit.app" target="11" />
       <module name="test_reddit.data" target="11" />
+      <module name="test_reddit.framework.databasemanager" target="11" />
       <module name="test_reddit.framework.requestmanager" target="11" />
     </bytecodeTargetLevel>
   </component>

@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity(), OnItemPostClickListener {
                     messageErrorFactory.showSnackBar(this@MainActivity, error, binding.root)
 
                     // get data from room
-                    postsRedditListViewModel.onGetPostsReddit()
                 }
                 is PostsRedditListViewModel.PostsListNavigation.ShowPostList -> navigation.run {
                     postsRecyclerAdapter.setDataList(postsList)

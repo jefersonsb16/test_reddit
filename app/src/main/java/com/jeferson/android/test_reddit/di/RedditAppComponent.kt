@@ -2,6 +2,7 @@ package com.jeferson.android.test_reddit.di
 
 import android.app.Application
 import com.jeferson.android.test_reddit.data.di.RepositoryModule
+import com.jeferson.android.test_reddit.databasemanager.di.DatabaseModule
 import com.jeferson.android.test_reddit.requestmanager.di.APIModule
 import com.jeferson.android.test_reddit.usecases.di.UseCasesModule
 import dagger.BindsInstance
@@ -14,6 +15,7 @@ import javax.inject.Singleton
         APIModule::class,
         UseCasesModule::class,
         RepositoryModule::class,
+        DatabaseModule::class
     ]
 )
 interface RedditAppComponent {

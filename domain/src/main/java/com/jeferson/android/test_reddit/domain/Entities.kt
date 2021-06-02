@@ -10,10 +10,10 @@ data class DataPostDomain(
     val title: String,
     val score: Int?,
     val thumbnail: String?,
-    val post_hint: String,
+    val post_hint: String?,
     val id: String,
     val author: String?,
     val num_comments: Int?,
-    val url: String,
-    val is_video: Boolean
+    val url: String?,
+    val is_video: Boolean?
 )

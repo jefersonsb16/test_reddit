@@ -89,6 +89,7 @@ ext {
     //Room
     roomCompiler = "androidx.room:room-compiler:$roomVersion"
     roomLib = "androidx.room:room-runtime:$roomVersion"
+    roomRxJavaLib = "androidx.room:room-rxjava2:$roomVersion"
 
     //Views
     appCompatLib = "androidx.appcompat:appcompat:$appCompatVersion"
