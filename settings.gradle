@@ -1,2 +1,5 @@
 rootProject.name = "test_reddit"
 include ':app'
+include ':domain'
+include ':framework:requestmanager'
+include ':data'

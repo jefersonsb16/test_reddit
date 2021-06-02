@@ -1,8 +1,7 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-parcelize'
 }
 
 android {
@@ -10,13 +9,13 @@ android {
     buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.jeferson.android.test_reddit"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
         versionName rootProject.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -36,9 +35,11 @@ android {
 
 dependencies {
     //Project
-    implementation project(":data")
     implementation project(":domain")
-    implementation project(":framework:requestmanager")
+
+    //Dagger
+    implementation daggerLib
+    kapt daggerCompiler
 
     //Kotlin
     implementation kotlinLib
@@ -46,43 +47,7 @@ dependencies {
     //Coroutines
     implementation coroutinesLib
 
-    //KTX
-    implementation ktxLib
-
-    //Gson
-    implementation gsonLib
-
-    //Material
-    implementation materialLib
-
-    //Dagger
-    implementation daggerLib
-    kapt daggerCompiler
-
-    //Retrofit
-    implementation okHttpInterceptorLib
-    implementation retrofitRxJavaLib
-    //implementation retrofitLib
-
     //RxJava
     implementation rxAndroidLib
-    implementation retrofitRxJavaLib
     implementation rxJavaLib
-
-    //Glide
-    implementation glideLib
-    annotationProcessor glideCompiler
-
-    //LiveData
-    implementation liveDataLib
-
-    //View
-    implementation appCompatLib
-    implementation cardViewLib
-    implementation constraintLayoutLib
-    implementation recyclerViewLib
-
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
