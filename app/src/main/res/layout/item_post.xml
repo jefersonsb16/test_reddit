@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imagePost"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/size_image_post"
+            android:layout_height="@dimen/size_image_post"
             android:contentDescription="@string/text_image_post"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"

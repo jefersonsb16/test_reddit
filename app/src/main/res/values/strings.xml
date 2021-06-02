@@ -5,4 +5,10 @@
     <string name="text_network_error">¡Parece que no hay internet!</string>
     <string name="text_generic_error">Ocurrió un error, intentelo más tarde.</string>
     <string name="text_image_post">Imagen de post</string>
+    <string name="txt_title">Title:</string>
+    <string name="txt_author">Author:</string>
+    <string name="txt_score">Score:</string>
+    <string name="txt_comments">Comments:</string>
+    <string name="txt_link"><u>Link</u></string>
+    <string name="message_error_open_url">No es posible abrir la url</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.jeferson.android.test_reddit.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +14,11 @@ import com.jeferson.android.test_reddit.databinding.ActivityMainBinding
 import com.jeferson.android.test_reddit.di.PostsRedditListComponent
 import com.jeferson.android.test_reddit.di.PostsRedditListModule
 import com.jeferson.android.test_reddit.domain.PostDomain
+import com.jeferson.android.test_reddit.parcelables.toPostParcelable
 import com.jeferson.android.test_reddit.presentation.PostsRedditListViewModel
 import com.jeferson.android.test_reddit.presentation.utils.Event
 import com.jeferson.android.test_reddit.utils.ActivityUtils
+import com.jeferson.android.test_reddit.utils.Constants.POST_DETAIL
 import com.jeferson.android.test_reddit.utils.MessageErrorFactory
 import com.jeferson.android.test_reddit.utils.MessageErrorFactory.Companion.NETWORK_ERROR
 import com.jeferson.android.test_reddit.utils.app
@@ -111,6 +114,8 @@ class MainActivity : AppCompatActivity(), OnItemPostClickListener {
     }
 
     override fun openPostDetail(post: PostDomain) {
-
+        val goDetail = Intent(this@MainActivity, PostDetailActivity::class.java)
+        goDetail.putExtra(POST_DETAIL, post.toPostParcelable())
+        startActivity(goDetail)
     }
 }
