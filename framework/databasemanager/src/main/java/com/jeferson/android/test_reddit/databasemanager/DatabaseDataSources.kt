@@ -25,4 +25,11 @@ class PostRedditRoomDataSource(
         .insertAllListPostReddit(postList.toPostEntityList())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
+
+    override fun deleteAllPostRedditLocal(): Completable {
+        return postRedditDao
+            .deleteAllPostRedditLocal()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+    }
 }

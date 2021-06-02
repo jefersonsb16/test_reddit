@@ -25,3 +25,9 @@ class AddAllPostRedditUseCase(
     fun invoke(postList: List<PostDomain>): Completable =
         postRedditRepository.addAllPostReddit(postList)
 }
+
+class DeleteAllPostRedditLocalUseCase(
+    private val postRedditRepository: PostRedditRepository
+) {
+    fun invoke(): Completable = postRedditRepository.deleteAllPostRedditLocal()
+}

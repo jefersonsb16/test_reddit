@@ -2,6 +2,7 @@ package com.jeferson.android.test_reddit.usecases.di
 
 import com.jeferson.android.test_reddit.data.PostRedditRepository
 import com.jeferson.android.test_reddit.usecases.AddAllPostRedditUseCase
+import com.jeferson.android.test_reddit.usecases.DeleteAllPostRedditLocalUseCase
 import com.jeferson.android.test_reddit.usecases.GetAllPostsRedditUseCase
 import com.jeferson.android.test_reddit.usecases.GetPostRedditLocalUseCase
 import dagger.Module
@@ -24,4 +25,9 @@ class UseCasesModule {
     fun addAllPostRedditUseCaseProvider(
         postRedditRepository: PostRedditRepository
     ) = AddAllPostRedditUseCase(postRedditRepository)
+
+    @Provides
+    fun deleteAllPostRedditLocalUseCaseProvider(
+        postRedditRepository: PostRedditRepository
+    ) = DeleteAllPostRedditLocalUseCase(postRedditRepository)
 }

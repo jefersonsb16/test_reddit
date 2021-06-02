@@ -15,4 +15,7 @@ interface PostRedditDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllListPostReddit(postList: List<PostEntity>): Completable
+
+    @Query("DELETE FROM post")
+    fun deleteAllPostRedditLocal(): Completable
 }

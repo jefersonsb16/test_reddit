@@ -15,7 +15,9 @@ import com.jeferson.android.test_reddit.di.PostsRedditListModule
 import com.jeferson.android.test_reddit.domain.PostDomain
 import com.jeferson.android.test_reddit.presentation.PostsRedditListViewModel
 import com.jeferson.android.test_reddit.presentation.utils.Event
+import com.jeferson.android.test_reddit.utils.ActivityUtils
 import com.jeferson.android.test_reddit.utils.MessageErrorFactory
+import com.jeferson.android.test_reddit.utils.MessageErrorFactory.Companion.NETWORK_ERROR
 import com.jeferson.android.test_reddit.utils.app
 import com.jeferson.android.test_reddit.utils.getViewModel
 
@@ -67,8 +69,16 @@ class MainActivity : AppCompatActivity(), OnItemPostClickListener {
         // observe events
         postsRedditListViewModel.events.observe(this, Observer(this::validateEvents))
 
-        // call api rest
-        postsRedditListViewModel.onGetPostsReddit()
+        // validate network state
+        if (ActivityUtils.isNetworkAvailable(this@MainActivity)) {
+            // call api rest
+            postsRedditListViewModel.onGetPostsReddit()
+        } else {
+            messageErrorFactory.showSnackBar(this@MainActivity, NETWORK_ERROR, binding.root)
+
+            // get data from room
+            postsRedditListViewModel.onGetPostRedditLocal()
+        }
     }
 
     // handle livedata events
@@ -79,9 +89,16 @@ class MainActivity : AppCompatActivity(), OnItemPostClickListener {
                     messageErrorFactory.showSnackBar(this@MainActivity, error, binding.root)
 
                     // get data from room
+                    postsRedditListViewModel.onGetPostRedditLocal()
                 }
                 is PostsRedditListViewModel.PostsListNavigation.ShowPostList -> navigation.run {
                     postsRecyclerAdapter.setDataList(postsList)
+                }
+                is PostsRedditListViewModel.PostsListNavigation.SaveDataPostRedditList -> navigation.run {
+                    postsRedditListViewModel.savePostReddit(postList)
+                }
+                is PostsRedditListViewModel.PostsListNavigation.DeleteDataPostRedditList -> navigation.run {
+                    postsRedditListViewModel.deleteAllPostReddit(postList)
                 }
                 PostsRedditListViewModel.PostsListNavigation.HideLoading -> {
                     binding.loadingPosts.visibility = View.INVISIBLE

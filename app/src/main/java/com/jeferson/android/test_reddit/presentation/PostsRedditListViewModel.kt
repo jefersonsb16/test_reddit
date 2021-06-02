@@ -6,13 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jeferson.android.test_reddit.domain.PostDomain
 import com.jeferson.android.test_reddit.presentation.utils.Event
+import com.jeferson.android.test_reddit.usecases.AddAllPostRedditUseCase
+import com.jeferson.android.test_reddit.usecases.DeleteAllPostRedditLocalUseCase
 import com.jeferson.android.test_reddit.usecases.GetAllPostsRedditUseCase
+import com.jeferson.android.test_reddit.usecases.GetPostRedditLocalUseCase
 import com.jeferson.android.test_reddit.utils.MessageErrorFactory.Companion.GENERIC_ERROR
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 
 class PostsRedditListViewModel(
-    private val getAllPostsRedditUseCase: GetAllPostsRedditUseCase
+    private val getAllPostsRedditUseCase: GetAllPostsRedditUseCase,
+    private val getPostRedditLocalUseCase: GetPostRedditLocalUseCase,
+    private val getAddAllPostRedditUseCase: AddAllPostRedditUseCase,
+    private val deleteAllPostRedditLocalUseCase: DeleteAllPostRedditLocalUseCase
 ) : ViewModel() {
 
     private val disposable = CompositeDisposable()
@@ -42,6 +48,9 @@ class PostsRedditListViewModel(
 
                     hideLoading()
 
+                    // delete all post
+                    _events.value = Event(PostsListNavigation.DeleteDataPostRedditList(postsList))
+
                     // send movie list to view with live data event
                     _events.value = Event(PostsListNavigation.ShowPostList(_postsList))
                 }, { error ->
@@ -58,6 +67,46 @@ class PostsRedditListViewModel(
 
                     _events.value = Event(PostsListNavigation.ShowPostError(errorCode))
                 })
+        )
+    }
+
+    // save the response from the API
+    fun savePostReddit(postList: List<PostDomain>) {
+        disposable.add(
+            getAddAllPostRedditUseCase.invoke(postList)
+                .subscribe {
+                    Log.d("INSERT ALL POST", "SUCCESS")
+                }
+        )
+    }
+
+    fun deleteAllPostReddit(postList: List<PostDomain>) {
+        disposable.add(
+            deleteAllPostRedditLocalUseCase.invoke()
+                .subscribe {
+                    Log.d("DELETE ALL POST", "SUCCESS")
+
+                    // save post
+                    _events.value = Event(PostsListNavigation.SaveDataPostRedditList(postList))
+                }
+        )
+    }
+
+    // get post list from local db
+    fun onGetPostRedditLocal() {
+        disposable.add(
+            getPostRedditLocalUseCase.invoke()
+                .doOnSubscribe { showLoading() }
+                .subscribe { resultList ->
+                    hideLoading()
+
+                    _postsList.clear()
+                    _postsList.addAll(resultList)
+
+                    // send movie list to view with live data event
+                    _sizePostsList.value = _postsList.size
+                    _events.value = Event(PostsListNavigation.ShowPostList(_postsList))
+                }
         )
     }
 
@@ -82,6 +131,8 @@ class PostsRedditListViewModel(
     sealed class PostsListNavigation {
         data class ShowPostError(val error: Int) : PostsListNavigation()
         data class ShowPostList(val postsList: List<PostDomain>) : PostsListNavigation()
+        data class SaveDataPostRedditList(val postList: List<PostDomain>) : PostsListNavigation()
+        data class DeleteDataPostRedditList(val postList: List<PostDomain>) : PostsListNavigation()
 
         object HideLoading : PostsListNavigation()
         object ShowLoading : PostsListNavigation()

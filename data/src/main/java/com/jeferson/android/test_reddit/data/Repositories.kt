@@ -18,4 +18,7 @@ class PostRedditRepository(
 
     fun addAllPostReddit(movieList: List<PostDomain>): Completable =
         localPostRedditDataSource.addAllPostReddit(movieList)
+
+    fun deleteAllPostRedditLocal(): Completable =
+        localPostRedditDataSource.deleteAllPostRedditLocal()
 }

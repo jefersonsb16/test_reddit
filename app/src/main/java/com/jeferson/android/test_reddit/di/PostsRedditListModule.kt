@@ -1,7 +1,10 @@
 package com.jeferson.android.test_reddit.di
 
 import com.jeferson.android.test_reddit.presentation.PostsRedditListViewModel
+import com.jeferson.android.test_reddit.usecases.AddAllPostRedditUseCase
+import com.jeferson.android.test_reddit.usecases.DeleteAllPostRedditLocalUseCase
 import com.jeferson.android.test_reddit.usecases.GetAllPostsRedditUseCase
+import com.jeferson.android.test_reddit.usecases.GetPostRedditLocalUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
@@ -11,8 +14,16 @@ class PostsRedditListModule {
 
     @Provides
     fun postsRedditListViewModelProvider(
-        getAllPostsRedditUseCase: GetAllPostsRedditUseCase
-    ) = PostsRedditListViewModel(getAllPostsRedditUseCase)
+        getAllPostsRedditUseCase: GetAllPostsRedditUseCase,
+        getPostRedditLocalUseCase: GetPostRedditLocalUseCase,
+        getAddAllPostRedditUseCase: AddAllPostRedditUseCase,
+        deleteAllPostRedditLocalUseCase: DeleteAllPostRedditLocalUseCase
+    ) = PostsRedditListViewModel(
+        getAllPostsRedditUseCase,
+        getPostRedditLocalUseCase,
+        getAddAllPostRedditUseCase,
+        deleteAllPostRedditLocalUseCase
+    )
 }
 
 @Subcomponent(modules = [(PostsRedditListModule::class)])

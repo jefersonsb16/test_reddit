@@ -13,4 +13,6 @@ interface LocalPostRedditDataSource {
     fun getPostRedditLocal(): Flowable<List<PostDomain>>
 
     fun addAllPostReddit(postList: List<PostDomain>): Completable
+
+    fun deleteAllPostRedditLocal(): Completable
 }
